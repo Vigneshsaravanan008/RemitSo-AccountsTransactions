@@ -10,7 +10,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{route('web.dashboard')}}" class="nav-link {{request()->routeIs('web.dashboard')?"active":""}}">
+                    <a href="{{route('web.dashboard')}}" class="nav-link {{request()->routeIs('web.dashboard')?"active":""}}" wire:navigate>
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Accounts
@@ -20,7 +20,7 @@
 
                 <li class="nav-header">Transactions</li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link">
+                    <a href="{{route("web.transaction")}}" class="nav-link {{request()->routeIs('web.transaction')?"active":""}}" wire:navigate>
                         <i class="nav-icon fas fa-comment-dots"></i>
                         <p>
                             Transactions

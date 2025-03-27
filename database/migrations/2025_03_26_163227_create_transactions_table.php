@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->enum('type', ['Credit', 'Debit']);
+            $table->decimal('current_balance_amount', 15, 2)->unsigned();
             $table->decimal('amount', 15, 2)->unsigned();
             $table->text('description')->nullable();
             $table->foreignUuid('account_id')->constrained('accounts')->onDelete('cascade');

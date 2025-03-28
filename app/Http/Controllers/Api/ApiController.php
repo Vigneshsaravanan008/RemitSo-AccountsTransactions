@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class ApiController extends Controller
 {
-    public function accounts(Request $request)
+    public function createAccount(Request $request)
     {
         $requestObject = $request->all();
 

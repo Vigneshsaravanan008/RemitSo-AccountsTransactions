@@ -28,15 +28,9 @@ class Login extends Component
     public function loginForm()
     {
         $this->validate();
-<<<<<<< HEAD
-        if(Auth::guard('web')->attempt(['email'=>$this->email, 'password'=>$this->password]))
-        {
-            return redirect()->route('web.dashboard');
-=======
         if(Auth::attempt(['email'=>$this->email, 'password'=>$this->password]))
         {
-            return redirect()->intended('dashboard');
->>>>>>> 40dbd0d (changes in auth and transactions)
+            return redirect()->intended('accounts');
         }else{
             if(User::where('email',$this->email)->exists())
             {
@@ -51,11 +45,7 @@ class Login extends Component
 
     public function mount()
     {
-<<<<<<< HEAD
-        if(Auth::guard("web")->check())
-=======
         if(Auth::check())
->>>>>>> 40dbd0d (changes in auth and transactions)
         {
             return redirect()->route('web.dashboard');
         }

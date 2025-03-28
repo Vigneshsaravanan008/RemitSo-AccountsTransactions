@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -81,7 +83,7 @@ class ApiController extends Controller
 
     public function accountDetails($account_number)
     {
-        $accounts=Account::where("id",$account_number)->first();
+        $accounts=Account::where("account_number",$account_number)->first();
         return response()->json(['status'=>200,'accounts'=>$accounts]);
     }
 
@@ -101,12 +103,13 @@ class ApiController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first(), 'error' => $validator->errors()], 400);
         } else {
-            $account=Account::where("id",$account_number)->update([
+            Account::where("account_number",$account_number)->update([
                 'account_name'=>$request->account_name,
                 'account_type'=>$request->account_type,
                 'currency'=>$request->currency,
                 'balance'=>$request->balance
             ]);
+            $account=Account::where("account_number",$account_number)->first();
         }
 
         return response()->json(['status'=>200,'message'=>"Account Updated Successfully",'account'=>$account]);
@@ -114,10 +117,22 @@ class ApiController extends Controller
 
     public function accountDeleteDetails($account_number)
     {
-        $account=Account::where("id",$account_number)->update([
+        Account::where("account_number",$account_number)->update([
             'status'=>0
         ]);
-
+        $account=Account::where("account_number",$account_number)->first();
         return response()->json(['status'=>200,'message'=>"Account Deactivated Successfully",'account'=>$account]);
+    }
+
+    public function accountTransactions()
+    {
+        $transactions=Transaction::paginate(15);
+        return response()->json(['status'=>200,'transactions'=>$transactions]);
+    }
+
+    public function accountTimeTransactions()
+    {
+        $transactions=Transaction::where("account_id",request("account_id"))->whereDate("created_at",">=",Carbon::parse(request("from"))->format("Y-m-d"))->whereDate("created_at","<=",Carbon::parse(request("from"))->format("Y-m-d"))->paginate(15);
+        return response()->json(['status'=>200,'transactions'=>$transactions]);
     }
 }

@@ -42,6 +42,7 @@ class Transaction extends Component
                         'amount'=>$this->amount,
                         'description'=>$this->description,
                         'account_id'=>$this->account_id,
+                        'current_balance_amount'=>$userAccount->balance
                     ]);
                     $text='Transaction Added Successfully';
                     $this->dispatch('dismissmodal',message:$text ,parameter:'200');
@@ -55,6 +56,7 @@ class Transaction extends Component
                             'amount'=>$this->amount,
                             'description'=>$this->description,
                             'account_id'=>$this->account_id,
+                            'current_balance_amount'=>$userAccount->balance
                         ]);
                         $text='Transaction Added Successfully';
                         $this->dispatch('dismissmodal',message:$text ,parameter:'200');

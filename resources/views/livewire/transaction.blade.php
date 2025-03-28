@@ -49,7 +49,7 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $transaction->account->account_number }}</td>
                                                 <td>{{ $transaction->account->account_name }}</td>
-                                                <td>{{ $transaction->account->balance }}</td>
+                                                <td>{{ $transaction->current_balance_amount }}</td>
                                                 <td>{{ Carbon\Carbon::parse($transaction->created_at)->format("D-m Y H:i:s A") }}</td>
                                                 <td>{{$transaction->amount}}</td>
                                                 <td>
